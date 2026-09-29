@@ -116,8 +116,15 @@ ok(!Object.keys(pkg.dependencies || {}).length, 'the app must ship with zero run
 
 /* ── 7. no secrets, no stray local state ──────────────────────────────── */
 const tracked = [...jsFiles, 'index.html', 'styles/app.css', 'sw.js', 'README.md', 'package.json'];
-const secret = /(api[_-]?key|secret|token)\s*[:=]\s*["'][A-Za-z0-9_\-]{20,}|ghp_[A-Za-z0-9]{20,}|BEGIN (RSA|OPENSSH) PRIVATE KEY/;
-for (const f of tracked) ok(!secret.test(read(f)), 'possible credential committed in ' + f, '');
+/* the shapes are assembled at runtime so the detector never matches itself */
+const PATTERNS = [
+  /(api[_-]?key|secret|token)\s*[:=]\s*["'][A-Za-z0-9_\-]{20,}/,
+  new RegExp('gh' + 'p_[A-Za-z0-9]{20}'),                 // GitHub classic PAT shape
+  /BEGIN (RSA|OPENSSH|EC) PRIVATE KEY/,
+  /x-access-token:[^\s"']{10,}@/                        // token embedded in a remote URL
+];
+const secret = (text) => PATTERNS.some((re) => re.test(text));
+for (const f of tracked) ok(!secret(read(f)), 'possible credential committed in ' + f, '');
 
 /* ── report ───────────────────────────────────────────────────────────── */
 const width = 62;
