@@ -38,7 +38,7 @@ jobs:
           cp -r styles lib data views icons assets _site/
           find _site -type f | sort
 
-      - uses: actions/configure-pages@v4
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
