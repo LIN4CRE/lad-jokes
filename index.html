@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-accent="inferno">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08080A" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFF6F1" media="(prefers-color-scheme: light)">
+<meta name="description" content="LAD JOKES — an adults-only humour commons. Raunchy stories, rigged polls, anonymous outrage ratings, encrypted banter. 18+.">
+<meta name="color-scheme" content="dark light">
+<title>LAD JOKES — Adults-Only Humor Commons</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0e'/%3E%3Cpath d='M16 4c3 5-2 6 0 9 2-1 5-4 4-7 4 3 5 8 3 12a7 7 0 0 1-13 1c-2-6 3-9 6-15z' fill='%23FF2D55'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LAD JOKES">
+<meta property="og:title" content="LAD JOKES — the members' room for terrible decisions">
+<meta property="og:description" content="Raunchy stories, rigged-nothing polls, anonymous outrage ratings and encrypted banter. Adults only, and it means it.">
+<meta property="og:image" content="assets/banner.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/banner.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="app.webmanifest">
+<link rel="stylesheet" href="styles/app.css">
+<script>
+/* pre-paint theme: no white flash for returning members (dark is the default) */
+(function () {
+  try {
+    var r = document.documentElement, raw = null;
+    try { raw = localStorage.getItem('lj:theme:v1'); } catch (e) {}
+    var t = raw ? JSON.parse(raw) : { mode: 'dark', accent: 'inferno', auto: false };
+    var mode = t.mode || 'dark';
+    if (t.auto && window.matchMedia) mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    r.setAttribute('data-theme', mode === 'light' ? 'light' : 'dark');
+    r.setAttribute('data-accent', t.accent || 'inferno');
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+
+<!-- ══ AGE GATE ══════════════════════════════════════════════════════════ -->
+<div id="splash" class="splash" hidden>
+  <div class="splash__panel" role="dialog" aria-modal="true" aria-labelledby="splash-title">
+    <div class="brand brand--xl">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="34" height="34"><path d="M16 3c3.4 5.6-2.2 7 .1 10.3 2.2-1.2 5.5-4.6 4.4-8 4.6 3.4 5.8 9.2 3.2 13.7A8.6 8.6 0 0 1 8 22.6C5.6 16.3 12.2 12.5 16 3z" fill="currentColor"/></svg>
+      </span>
+      <h1 id="splash-title" class="brand__word">Lad<em>Jokes</em></h1>
+    </div>
+    <p class="splash__lead">The members' room for <strong>terrible decisions</strong>, told out loud. Polls, outrage ratings, encrypted banter and a forum with no safety net.</p>
+    <ul class="splash__rules">
+      <li><b>18+ only.</b> Naked, rude and unapologetically adult.</li>
+      <li><b>Nobody gets named.</b> No real people, no addresses, no workplaces.</li>
+      <li><b>Confession, not contact.</b> If it happened to someone who didn't agree — it doesn't get posted.</li>
+    </ul>
+    <form id="age-form" class="splash__form" autocomplete="off">
+      <label class="field field--dob">
+        <span class="field__label">Date of birth</span>
+        <input id="dob" name="dob" type="date" required max="2100-01-01" aria-describedby="dob-msg">
+      </label>
+      <button class="btn btn--primary btn--lg" type="submit">I'm 18 — let me in</button>
+      <button class="btn btn--ghost btn--lg" type="button" data-action="age-decline">I'm not. Get me out</button>
+      <p id="dob-msg" class="splash__msg" role="status" aria-live="polite"></p>
+    </form>
+    <p class="splash__foot">Prototype build · all accounts, votes and messages are fictional and stay in this browser.</p>
+  </div>
+</div>
+
+<!-- ══ APP SHELL ═════════════════════════════════════════════════════════ -->
+<div id="app" class="shell" hidden>
+  <aside id="sidebar" class="side" aria-label="Primary"></aside>
+  <div class="workspace">
+    <header id="topbar" class="top" role="banner"></header>
+    <main id="view" class="view" tabindex="-1"></main>
+  </div>
+  <nav id="tabbar" class="tabbar" aria-label="Primary compact"></nav>
+</div>
+
+<div id="toasts" class="toasts" role="region" aria-live="polite" aria-label="Notifications"></div>
+<div id="modal-root" class="modal-root" hidden></div>
+
+<noscript>
+  <div style="padding:40px;font:16px system-ui;color:#fff;background:#08080A;min-height:100vh">
+    <h1 style="color:#FF2D55">LAD JOKES needs JavaScript</h1>
+    <p>This prototype runs entirely in your browser — no JS, no jokes. Enable it, then reload.</p>
+  </div>
+</noscript>
+
+<script src="lib/utils.js"></script>
+<script src="lib/theme.js"></script>
+<script src="lib/crypto.js"></script>
+<script src="lib/store.js"></script>
+<script src="data/seed.js"></script>
+<script src="lib/accounts.js"></script>
+<script src="lib/notify.js"></script>
+<script src="lib/sync.js"></script>
+<script src="lib/share.js"></script>
+<script src="lib/router.js"></script>
+<script src="views/splash.js"></script>
+<script src="views/feed.js"></script>
+<script src="views/story.js"></script>
+<script src="views/polls.js"></script>
+<script src="views/create.js"></script>
+<script src="views/chat.js"></script>
+<script src="views/admin.js"></script>
+<script src="views/account.js"></script>
+<script src="views/settings.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
