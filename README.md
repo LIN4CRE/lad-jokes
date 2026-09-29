@@ -5,7 +5,6 @@
 <h1 align="center">LAD JOKES</h1>
 
 <p align="center">
-  <a href="https://github.com/LIN4CRE/lad-jokes/actions/workflows/ci.yml"><img src="https://github.com/LIN4CRE/lad-jokes/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
   <a href="https://lin4cre.github.io/lad-jokes/"><img src="https://img.shields.io/badge/live%20prototype-GitHub%20Pages-FF2D55?style=flat-square" alt="Live prototype on GitHub Pages"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-FFB020?style=flat-square" alt="MIT licence"></a>
   <img src="https://img.shields.io/badge/18%2B-only-c9243a?style=flat-square" alt="Adults only">
@@ -27,7 +26,7 @@ bottom, and the honest split between what is real and what is simulated is
 ```
 4,544 lines of JavaScript across 28 files · 552 lines of CSS · 101 lines of shell markup
 18 app modules (9 `lib/*` services + 9 `views/*` routes) · 21 <script> tags · zero dependencies
-304 end-to-end assertions · 205 static checks · all green in CI
+304 end-to-end assertions · 205 static checks · all green from a clean clone
 ```
 
 ---
@@ -121,17 +120,40 @@ assets/             banner.png/.jpg, social-preview.png (the GitHub social card)
 
 ---
 
-## CI, Pages and releases
+## CI, deployment and releases
 
 | Automation | What it does |
 |---|---|
-| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | On every push and PR: `npm ci`, `node tools/check.mjs`, then serve the app and run the 304-assertion harness; uploads the server log as an artifact if anything fails. A second job runs `npm audit --audit-level=high`. |
-| [`.github/workflows/pages.yml`](.github/workflows/pages.yml) | Deploys the branch as-is to `https://lin4cre.github.io/lad-jokes/` — there is no build, so the artifact is just the files the app loads, and the run fails if a reference dangles. |
-| [`.github/dependabot.yml`](.github/dependabot.yml) | Monthly bumps for the one dev dependency and the Actions. |
+| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | On every push and PR: `npm ci`, `node tools/check.mjs`, then serve the app and run the 304-assertion harness. A second job runs `npm audit --audit-level=high`. |
+| [`.github/workflows/pages.yml`](.github/workflows/pages.yml) | Builds no artefact (there is no build) and uploads the file set the app actually loads as a Pages deployment. |
+| [`.github/dependabot.yml`](.github/dependabot.yml) | Monthly bumps for the single dev dependency and for the Actions themselves. |
 | `npm run package` | `dist/` plus a versioned `.tar.gz` for an internal drop or a release asset. |
 
-`assets/social-preview.png` (1280×720) is the repo's social card; `assets/banner.png` is the
-same art at 1200×675 for the README, with `banner.jpg` as the lighter-weight embed.
+**Live now:** https://lin4cre.github.io/lad-jokes/ — published from the `main` branch root,
+so it updates on every push without waiting for a CI job. The only cosmetic side effect of
+branch publishing is that Jekyll also renders `README.md`; `tools/check.mjs` and the app are
+untouched by it, and switching to the workflow above (`.github/workflows/pages.yml`) takes the
+`/jekyll` build out of the path — add a `.nojekyll` file at the root and flip *Settings → Pages*
+from "Deploy from a branch" to "GitHub Actions".
+
+**If the CI badge is red:** that is the account's Actions allocation, not this repo. A canary
+workflow containing nothing but `echo "runner reached"` was queued to `ubuntu-latest` and
+failed in four seconds with no runner ever assigned, which is what GitHub does when a personal
+account has no usable Actions minutes (usually a $0 spend limit under
+[Settings → Billing](https://github.com/settings/billing)). The two jobs are byte-identical to
+`npm run check` and `npm run test:ci`, both of which pass from a clean clone:
+
+```
+$ git clone https://github.com/LIN4CRE/lad-jokes && cd lad-jokes && npm ci
+$ node tools/check.mjs         →  205 checks passed · 0 failed
+$ npm run test:ci              →  304 passed · 0 failed · 0 console errors
+```
+
+Top up or enable the spend limit and re-run the workflow (Actions → Re-run all jobs); nothing
+in the repo needs to change. `assets/social-preview.png` (1280×720) is ready to become the
+repo's social card at *Settings → General → Social preview* — that one screen is browser-only,
+there is no API for it. `assets/banner.png` is the same artwork at 1200×675 for the README,
+with `banner.jpg` as the lighter embed.
 
 ---
 
