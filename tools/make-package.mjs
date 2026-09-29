@@ -25,7 +25,7 @@ for (const a of [...block.matchAll(/'([^']+)'/g)].map((m) => m[1])) {
 }
 /* the repo keeps banner.png (1.4MB, for the social preview) — the runtime bundle only
    needs the JPEG the README embeds and the PWA icons */
-for (const extra of ['app.webmanifest', 'icon.svg', 'README.md', 'LICENSE',
+for (const extra of ['app.webmanifest', 'icon.svg', 'README.md', 'LICENSE', '.nojekyll',
                      'assets/banner.jpg',
                      'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png']) {
   refs.add(extra);

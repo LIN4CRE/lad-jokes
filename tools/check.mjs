@@ -99,7 +99,7 @@ ok(unstyled.length === 0, 'classes emitted with no CSS rule', unstyled.join(', '
 
 /* ── 6. packaging + repo assets ───────────────────────────────────────── */
 for (const f of ['README.md', 'LICENSE', 'CONTRIBUTING.md', 'SECURITY.md', 'CHANGELOG.md',
-                 '.gitignore', '.gitattributes', '.editorconfig',
+                 '.gitignore', '.gitattributes', '.editorconfig', '.nojekyll',
                  'assets/banner.png', 'assets/banner.jpg', 'assets/social-preview.png',
                  'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
                  '.github/workflows/ci.yml', '.github/workflows/pages.yml',

@@ -34,7 +34,7 @@ jobs:
       - name: Assemble the file set
         run: |
           mkdir -p _site
-          cp index.html app.js sw.js app.webmanifest icon.svg LICENSE README.md _site/
+          cp index.html app.js sw.js app.webmanifest icon.svg LICENSE README.md .nojekyll _site/
           cp -r styles lib data views icons assets _site/
           find _site -type f | sort
 

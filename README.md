@@ -26,7 +26,7 @@ bottom, and the honest split between what is real and what is simulated is
 ```
 4,544 lines of JavaScript across 28 files · 552 lines of CSS · 101 lines of shell markup
 18 app modules (9 `lib/*` services + 9 `views/*` routes) · 21 <script> tags · zero dependencies
-304 end-to-end assertions · 205 static checks · all green from a clean clone
+304 end-to-end assertions · 206 static checks · all green from a clean clone
 ```
 
 ---
@@ -62,7 +62,7 @@ Four things to try in the first minute:
 ```bash
 npm ci
 npm run test:ci     # serves the app, then runs the jsdom harness → 304 passed · 0 failed
-npm run check       # 205 static checks: script tags, precache list, JSON, CSS tokens, syntax
+npm run check       # 206 static checks: script tags, precache list, JSON, CSS tokens, syntax
 ```
 
 **`tests/harness.mjs`** boots the whole app in jsdom over http and walks it in order — age
@@ -145,14 +145,17 @@ account has no usable Actions minutes (usually a $0 spend limit under
 
 ```
 $ git clone https://github.com/LIN4CRE/lad-jokes && cd lad-jokes && npm ci
-$ node tools/check.mjs         →  205 checks passed · 0 failed
+$ node tools/check.mjs         →  206 checks passed · 0 failed
 $ npm run test:ci              →  304 passed · 0 failed · 0 console errors
 ```
 
 Top up or enable the spend limit and re-run the workflow (Actions → Re-run all jobs); nothing
 in the repo needs to change. `assets/social-preview.png` (1280×720) is ready to become the
 repo's social card at *Settings → General → Social preview* — that one screen is browser-only,
-there is no API for it. `assets/banner.png` is the same artwork at 1200×675 for the README,
+there is no API for it. A `.nojekyll` file is committed at the root, so the branch
+deploy skips front-matter mangling as soon as you add it to the Pages ignore set — or
+skip Jekyll entirely by switching *Settings → Pages* to "GitHub Actions" once Actions
+minutes are available. `assets/banner.png` is the same artwork at 1200×675 for the README,
 with `banner.jpg` as the lighter embed.
 
 ---
