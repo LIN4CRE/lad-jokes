@@ -1,0 +1,63 @@
+{
+  "name": "Lad Jokes \u2014 Adults-Only Humor Commons",
+  "short_name": "Lad Jokes",
+  "description": "Raunchy stories, rigged polls, anonymous outrage ratings, encrypted banter. 18+ only.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#08080A",
+  "theme_color": "#08080A",
+  "categories": [
+    "entertainment",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Post a story",
+      "url": "./#/create"
+    },
+    {
+      "name": "Polls",
+      "url": "./#/polls"
+    },
+    {
+      "name": "Encrypted rooms",
+      "url": "./#/chat"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/banner.png",
+      "sizes": "1200x675",
+      "type": "image/png",
+      "label": "The forum, dark theme"
+    }
+  ]
+}
