@@ -1,0 +1,21 @@
+# dependencies (the app itself has none — jsdom is test-only)
+node_modules/
+
+# generated artifacts — regenerate with `npm run preview` / `npm run package`
+preview.html
+dist/
+*.tgz
+*.tar.gz
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# local scratch
+*.log
+.env
+.env.*

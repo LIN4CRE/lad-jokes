@@ -1,0 +1,33 @@
+{
+  "name": "lad-jokes",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Adults-only humour platform prototype: raunchy stories, rigged-nothing polls, anonymous outrage ratings, encrypted banter, staff back room. Zero build step.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "serve": "python3 -m http.server 8123 --bind 0.0.0.0",
+    "test": "node tests/harness.mjs",
+    "test:ci": "(python3 -m http.server 8123 --bind 0.0.0.0 >/dev/null 2>&1 &) ; sleep 1 ; node tests/harness.mjs",
+    "preview": "node tools/make-preview.mjs",
+    "package": "node tools/make-package.mjs",
+    "check": "node tools/check.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "pwa", "offline-first", "community", "polls", "e2ee", "prototype", "vanilla-js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LIN4CRE/lad-jokes.git"
+  },
+  "homepage": "https://lin4cre.github.io/lad-jokes/",
+  "bugs": {
+    "url": "https://github.com/LIN4CRE/lad-jokes/issues"
+  }
+}
