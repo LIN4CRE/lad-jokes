@@ -1,0 +1,13 @@
+name: Canary
+
+on:
+  push: { branches: [main] }
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "runner reached"
