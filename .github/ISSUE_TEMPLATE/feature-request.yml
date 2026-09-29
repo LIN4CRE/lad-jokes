@@ -1,0 +1,66 @@
+name: Feature request
+about: A new capability for the prototype
+title: "[feat] "
+labels: enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This repo is deliberately a **client-only prototype with no build step**. Feature
+        requests that need a server, a framework or a runtime dependency get converted into
+        a section in the README's production architecture instead. That is not a rejection —
+        it is what this repo is for.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing, and who does it help
+      description: Members, moderators, or the code? The mechanism matters less than the gap.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: How it should behave
+      description: Routes, click paths, what gets stored, what other tabs see. Be specific — the harness will encode this.
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Where it would live
+      options:
+        - views/feed.js
+        - views/story.js
+        - views/polls.js
+        - views/create.js
+        - views/chat.js
+        - views/admin.js
+        - views/account.js
+        - views/settings.js
+        - lib/store.js (schema or sync)
+        - lib/crypto.js
+        - styles/app.css (presentation only)
+        - tests / tooling
+    validations:
+      required: true
+  - type: dropdown
+    id: content
+    attributes:
+      label: Does it touch user-generated content?
+      description: Anything a member can write, upload or share needs the moderation story spelled out.
+      options: [no, "yes — and I have said how it is gated", "yes — needs thinking about"]
+    validations:
+      required: true
+  - type: textarea
+    id: alt
+    attributes:
+      label: Alternatives you considered
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: You understand
+      options:
+        - label: No new runtime dependencies are involved
+          required: true
+        - label: The content policy still holds (18+, no minors, no non-consent, no slurs, no real people)
+          required: true

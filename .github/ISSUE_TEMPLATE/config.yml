@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a vulnerability (private)
+    url: https://github.com/LIN4CRE/lad-jokes/security/advisories/new
+    about: Please do not open a public issue for anything exploitable.
+  - name: Security policy
+    url: https://github.com/LIN4CRE/lad-jokes/blob/main/SECURITY.md
+    about: What the trust boundary actually is in a client-only prototype.
+  - name: Content policy
+    url: https://github.com/LIN4CRE/lad-jokes/blob/main/README.md#content-policy
+    about: The lines this project will not move, and why.

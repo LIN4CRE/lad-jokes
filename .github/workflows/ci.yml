@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  harness:
+    name: End-to-end harness (jsdom)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dev dependencies
+        run: npm ci
+
+      - name: Static checks (asset refs, JSON, CSS braces, manifest)
+        run: node tools/check.mjs
+
+      - name: Serve the app and run the harness
+        run: |
+          python3 -m http.server 8123 --bind 0.0.0.0 > server.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8123/index.html > /dev/null
+          LJ_URL=http://127.0.0.1:8123/ node tests/harness.mjs
+
+      - name: Upload server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: server-log
+          path: server.log
+          if-no-files-found: ignore
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm audit --audit-level=high

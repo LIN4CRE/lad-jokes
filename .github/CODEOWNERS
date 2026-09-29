@@ -1,0 +1,6 @@
+# Everything is owner-reviewed; the content policy and the store boundary especially so.
+*            @LIN4CRE
+/lib/store.js            @LIN4CRE
+/data/seed.js            @LIN4CRE
+/views/create.js         @LIN4CRE
+/.github/workflows/      @LIN4CRE

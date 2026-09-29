@@ -1,0 +1,59 @@
+name: Bug report
+about: Something renders, filters, syncs or rates wrong
+title: "[bug] "
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The harness covers 304 behaviours — if you can reproduce it, that is already half a fix.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: One or two sentences. Actual behaviour, not what you wished for.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Route, then the clicks. Include the state that matters (signed in as who, which filters, NSFW on or off).
+      value: |
+        1. Serve with `npm run serve`
+        2. Go to `#/…`
+        3. Click …
+    validations:
+      required: true
+  - type: dropdown
+    id: context
+    attributes:
+      label: Where did you see it
+      options: [localhost, GitHub Pages, file://, a sandboxed iframe preview, other]
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+  - type: textarea
+    id: console
+    attributes:
+      label: Console output
+      description: Any error, warning, or `[view:enter]` line. Paste the lot, unedited.
+      render: text
+  - type: textarea
+    id: state
+    attributes:
+      label: State dump
+      description: Run `copy(JSON.stringify(Object.fromEntries(Object.keys(localStorage).filter(k=>k.startsWith("lj:")).map(k=>[k, localStorage[k].length])), null, 1)` in the console and paste it. Key names and sizes only — no values, no message bodies.
+      render: json
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I ran `node tests/harness.mjs` and it is green (or the output is pasted below)
+          required: false
+        - label: I removed any real name, number, address or message content from the report
+          required: true
